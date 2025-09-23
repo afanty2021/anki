@@ -1,0 +1,37 @@
+现在我已经对 Anki 项目中解析 .apkg 文件的代码有了全面的了解。让我为你总结一下：在 Anki 项目中，解析 .apkg 文件的代码主要分布在以下几个部分：
+Python 实现
+pylib/anki/importing/apkg.py - 这是主要的 .apkg 文件解析入口：
+AnkiPackageImporter 类负责处理 .apkg 文件的导入
+使用 zipfile.ZipFile 打开 .apkg 文件（本质上是一个 ZIP 压缩包）
+解析其中的 collection.anki2 或 collection.anki21 文件（实际的数据库）
+处理媒体文件映射（media 文件）
+pylib/anki/importing/anki2.py - 处理 Anki 数据库文件：
+Anki2Importer 类负责解析数据库内容
+处理笔记、卡片、牌组等核心数据结构
+
+Rust 实现
+rslib/src/import_export/package/apkg/import/mod.rs - Rust 版本的 .apkg 导入实现：
+import_apkg 函数是入口点
+使用 zip::ZipArchive 解析 .apkg 文件
+提取元数据、数据库文件和媒体文件
+rslib/src/import_export/package/meta.rs - 处理 .apkg 文件元数据：
+解析 meta 文件获取版本信息
+确定使用的数据库格式（.anki2, .anki21, .anki21b）
+rslib/src/import_export/package/media.rs - 处理媒体文件：
+解析 media 文件获取媒体映射
+提取和复制媒体文件
+
+.apkg 文件结构
+.apkg 文件实际上是一个 ZIP 压缩包，包含以下文件：
+meta - 元数据文件，包含版本信息
+collection.anki2/collection.anki21/collection.anki21b - SQLite 数据库文件
+media - 媒体文件映射
+数字命名的文件 - 实际的媒体文件
+
+解析过程主要是：
+解压 .apkg 文件
+读取元数据确定版本
+解析 SQLite 数据库获取笔记、卡片等信息
+根据媒体映射处理媒体文件
+这些就是 Anki 项目中处理 .apkg 文件的主要代码。
+
