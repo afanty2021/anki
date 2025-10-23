@@ -1,4 +1,3 @@
-
 # FTL文本管理
 
 <cite>
@@ -13,7 +12,16 @@
 - [string/mod.rs](file://ftl/src/string/mod.rs)
 - [gather.rs](file://rslib/i18n/gather.rs)
 - [check.rs](file://rslib/i18n/check.rs)
+- [deck-config.ftl](file://ftl/core/deck-config.ftl) - *在最近的提交中更新*
+- [launcher.ftl](file://ftl/core/launcher.ftl) - *在最近的提交中更新*
 </cite>
+
+## 更新摘要
+**已做更改**   
+- 更新了关于`deck-config.ftl`和`launcher.ftl`文件的文档内容，以反映最新的翻译字符串变更
+- 在项目结构和核心组件部分添加了对最近更新的说明
+- 保持了原有的文档结构和源代码引用系统
+- 所有内容已完全转换为中文(中文)
 
 ## 目录
 1. [项目结构](#项目结构)
@@ -72,19 +80,25 @@ FTL --> Scripts
 - [ftl/qt/preferences.ftl](file://ftl/qt/preferences.ftl)
 - [ftl/remove-unused.sh](file://ftl/remove-unused.sh)
 - [ftl/copy-core-string.sh](file://ftl/copy-core-string.sh)
+- [ftl/core/deck-config.ftl](file://ftl/core/deck-config.ftl) - *在最近的提交中更新*
+- [ftl/core/launcher.ftl](file://ftl/core/launcher.ftl) - *在最近的提交中更新*
 
 **章节来源**
 - [ftl/core/actions.ftl](file://ftl/core/actions.ftl)
 - [ftl/qt/preferences.ftl](file://ftl/qt/preferences.ftl)
+- [ftl/core/deck-config.ftl](file://ftl/core/deck-config.ftl) - *在最近的提交中更新*
+- [ftl/core/launcher.ftl](file://ftl/core/launcher.ftl) - *在最近的提交中更新*
 
 ## 核心组件
 
-Anki的FTL文本管理系统包含多个核心组件，包括文本提取、验证、清理和同步工具。系统通过`ftl/src/main.rs`中的命令行接口提供各种操作，如同步翻译、写入JSON、垃圾回收和字符串操作。`remove-unused.sh`脚本用于清理未使用的文本条目，而`copy-core-string.sh`脚本用于在核心仓库之间复制字符串。
+Anki的FTL文本管理系统包含多个核心组件，包括文本提取、验证、清理和同步工具。系统通过`ftl/src/main.rs`中的命令行接口提供各种操作，如同步翻译、写入JSON、垃圾回收和字符串操作。`remove-unused.sh`脚本用于清理未使用的文本条目，而`copy-core-string.sh`脚本用于在核心仓库之间复制字符串。最近的提交更新了`deck-config.ftl`和`launcher.ftl`文件中的翻译字符串，以改进牌组配置界面和启动器的用户体验。
 
 **章节来源**
 - [ftl/src/main.rs](file://ftl/src/main.rs)
 - [ftl/remove-unused.sh](file://ftl/remove-unused.sh)
 - [ftl/copy-core-string.sh](file://ftl/copy-core-string.sh)
+- [ftl/core/deck-config.ftl](file://ftl/core/deck-config.ftl) - *在最近的提交中更新*
+- [ftl/core/launcher.ftl](file://ftl/core/launcher.ftl) - *在最近的提交中更新*
 
 ## 架构概述
 
