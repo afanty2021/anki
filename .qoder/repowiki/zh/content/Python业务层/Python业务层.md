@@ -2,11 +2,20 @@
 
 <cite>
 **本文档中引用的文件**  
-- [pylib/anki/_backend.py](file://pylib/anki/_backend.py)
-- [pylib/anki/rsbackend.py](file://pylib/anki/rsbackend.py)
-- [pylib/rsbridge/lib.rs](file://pylib/rsbridge/lib.rs)
+- [pylib/anki/_backend.py](file://pylib/anki/_backend.py) - *在最近的提交中更新*
+- [pylib/rsbridge/lib.rs](file://pylib/rsbridge/lib.rs) - *在最近的提交中更新*
 - [pylib/rsbridge/Cargo.toml](file://pylib/rsbridge/Cargo.toml)
+- [proto/anki/backend.proto](file://proto/anki/backend.proto) - *新增的协议缓冲区定义*
+- [rslib/src/backend/mod.rs](file://rslib/src/backend/mod.rs) - *Rust后端核心实现*
 </cite>
+
+## 更新摘要
+**已更改内容**   
+- 扩展了Python与Rust桥接机制的技术细节
+- 新增了关于数据类型转换、序列化和性能优化的详细说明
+- 更新了错误处理与异常传播机制的文档
+- 增加了接口调用与生命周期管理的内容
+- 重构了架构概述部分以反映最新的代码结构
 
 ## 目录
 1. [简介](#简介)
