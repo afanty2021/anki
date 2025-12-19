@@ -118,7 +118,7 @@ class DocumentStructureChecker:
         # 检查中文标点
         chinese_punctuation_issues = re.findall(r'[a-zA-Z0-9][，。！？；：]', content)
         if chinese_punctuation_issues:
-            self.issues.append(f"{module_name}: 发现中英文混用标点 (如 '{chinese_punctuation_issues[0]})')
+            self.issues.append(f"{module_name}: 发现中英文混用标点 (如 '{chinese_punctuation_issues[0]}')")
 
     def generate_report(self) -> str:
         """生成检查报告"""

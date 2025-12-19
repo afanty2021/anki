@@ -2,6 +2,7 @@
 
 ## 更新日志 (Change Log)
 
+- 2025-12-19: 添加文档同步管理系统，更新开发工作流程和质量保证机制
 - 2025-11-17: 第三次深度补充更新，添加测试策略分析、性能优化指南、开发工作流程、生成代码结构分析
 - 2025-11-17: 增量更新，添加 proto 和 launcher 模块文档，更新 Mermaid 结构图，补充后端服务和调度系统详细架构
 - 2025-06-17: 初始化项目 AI 上下文，生成架构概览和模块结构图
@@ -22,6 +23,7 @@ Anki 采用分层架构，主要包含以下组件：
 - **构建系统**: 基于 Ninja 的构建工具，位于 `build/` 目录，支持自动化构建和质量检查
 - **国际化**: Fluent 翻译文件，位于 `ftl/` 目录，支持类型安全的多语言开发
 - **启动器**: 跨平台应用启动器，位于 `qt/launcher/` 目录，提供安装和部署管理
+- **文档管理系统**: 自动化文档同步和质量保证工具，位于 `tools/` 和 `docs/` 目录
 
 ## ✨ 模块结构图
 
@@ -35,6 +37,7 @@ graph TD
     A --> G["ftl"];
     A --> H["proto"];
     A --> I["docs"];
+    A --> J["tools"];
 
     B --> B1["src"];
     B --> B2["lib"];
@@ -106,6 +109,14 @@ graph TD
     I --> I2["development.md"];
     I --> I3["build.md"];
     I --> I4["protobuf.md"];
+    I --> I5["context-document-sync-workflow.md"];
+    I --> I6["context-document-update-guide.md"];
+
+    J --> J1["sync-docs.py"];
+    J --> J2["update-docs.sh"];
+    J --> J3["check-docs.sh"];
+    J --> J4["check-doc-structure.py"];
+    J --> J5["check-mermaid-syntax.py"];
 
     click B "./ts/CLAUDE.md" "查看前端模块文档"
     click C "./qt/CLAUDE.md" "查看Qt界面模块文档"
@@ -115,6 +126,8 @@ graph TD
     click F "./build/CLAUDE.md" "查看构建系统模块文档"
     click G "./ftl/CLAUDE.md" "查看国际化模块文档"
     click H "./proto/CLAUDE.md" "查看Protobuf接口模块文档"
+    click I "./docs/context-document-sync-workflow.md" "查看文档同步工作流程"
+    click J "./tools/sync-docs.py" "查看文档同步工具"
 ```
 
 ## 模块索引
@@ -129,6 +142,8 @@ graph TD
 | `build/` | Python/Rust | 构建系统和工具链，自动化构建和质量检查 | `build/runner/src/main.rs` | ✅ 已更新 |
 | `ftl/` | Fluent | 国际化和翻译文件，类型安全翻译API | `ftl/core/` | ✅ 已更新 |
 | `proto/` | Protobuf | 跨语言通信接口定义，类型绑定生成 | `proto/anki/backend.proto` | ✅ 已更新 |
+| `docs/` | Markdown | 项目文档和工作流程指南 | `docs/context-document-sync-workflow.md` | ✅ 新增 |
+| `tools/` | Python/Shell | 文档同步和质量保证工具集 | `tools/sync-docs.py` | ✅ 新增 |
 
 ## 运行和开发
 
@@ -236,6 +251,28 @@ graph TD
 6. **Python 封装**: 添加必要的 Python 包装层
 7. **测试编写**: 为各层编写相应的测试
 8. **质量检查**: 运行 `./check` 验证代码质量
+9. **文档更新**: 运行 `./tools/update-docs.sh` 同步文档
+
+### 文档管理系统
+
+#### 自动化文档同步
+- **检测工具**: `tools/sync-docs.py` - 自动检测需要更新的文档
+- **更新脚本**: `tools/update-docs.sh` - 自动更新文档并创建备份
+- **质量检查**: `tools/check-docs.sh` - 综合文档质量验证
+- **结构检查**: `tools/check-doc-structure.py` - 验证文档结构规范
+- **语法检查**: `tools/check-mermaid-syntax.py` - Mermaid 图表语法验证
+
+#### 文档同步工作流程
+1. **代码变更触发**: 自动检测代码变更影响范围
+2. **影响评估**: 分析变更对文档的影响程度
+3. **自动更新**: 根据模板和规范自动生成文档内容
+4. **质量验证**: 多层次检查确保文档质量
+5. **备份管理**: 自动创建版本备份，支持回滚
+
+#### 集成开发流程
+- **Pre-commit 检查**: 在提交前自动检查文档是否需要更新
+- **CI/CD 集成**: 在持续集成中验证文档质量
+- **增量更新**: 只更新实际变更部分，保留历史记录
 
 ### 代码质量保障
 - **类型安全**: 严格使用 TypeScript 和 Rust 类型系统
@@ -243,11 +280,12 @@ graph TD
 - **代码格式**: 统一的代码格式化规则
 - **测试覆盖**: 确保关键路径有测试覆盖
 - **性能监控**: 定期运行基准测试
+- **文档质量**: 自动化文档检查确保文档与代码同步
 
 ### 跨语言协作开发
 - **接口优先**: 先定义 Protobuf 接口，再实现功能
 - **类型一致性**: 依赖生成的类型绑定确保一致性
-- **文档同步**: 更新接口时同步更新文档
+- **文档同步**: 使用自动化工具确保文档与代码保持同步
 - **版本兼容**: 保持接口的向后兼容性
 
 ## 编码标准
@@ -284,6 +322,7 @@ graph TD
 - 使用 `./check` 验证代码变更
 - 遵循项目的编码标准和错误处理模式
 - 利用启动器进行跨平台开发和测试
+- **文档同步**: 代码变更后记得运行 `./tools/update-docs.sh`
 
 ### 构建问题处理
 - 遇到构建错误时，先运行完整的 `./check`
@@ -291,11 +330,26 @@ graph TD
 - 查看 `out/` 目录了解生成的代码结构
 - 使用 `./ninja -v` 查看详细构建过程
 
-### 文档更新
+### 文档管理最佳实践
+- **自动检测**: 使用 `./tools/sync-docs.py --check-only` 快速检查是否需要更新文档
+- **自动更新**: 运行 `./tools/update-docs.sh` 进行完整的文档同步更新
+- **质量检查**: 使用 `./tools/check-docs.sh` 验证文档质量
+- **增量更新**: 文档系统支持增量更新，保留历史记录
+- **备份管理**: 更新脚本会自动创建时间戳备份
+
+#### 文档更新工作流程
+1. **代码变更前**: 运行 `./tools/sync-docs.py` 了解当前文档状态
+2. **开发过程中**: 关注变更对文档的影响
+3. **提交前**: 运行 `./tools/update-docs.sh` 同步文档
+4. **验证质量**: 运行 `./tools/check-docs.sh` 确保文档质量
+5. **提交变更**: 包含代码和文档的完整变更
+
+### 文档编写规范
 - 模块级文档应包含导航面包屑
 - 根文档应保持简洁的全局视图
 - 使用 Mermaid 图表展示模块关系
-- 增量更新时保持文档同步
+- 遵循统一的文档结构和格式规范
+- 自动化工具会检查 Markdown 语法、链接有效性和结构一致性
 
 ### 深度开发指导
 - **后端服务开发**: 参考 `rslib/src/backend/` 模块架构
@@ -304,12 +358,45 @@ graph TD
 - **启动器开发**: 参考 `qt/launcher/` 的跨平台启动逻辑
 - **前端开发**: 使用 `ts/lib/generated/` 中的类型绑定
 - **测试编写**: 遵循现有的测试模式和多语言测试策略
+- **文档同步**: 参考 `docs/context-document-sync-workflow.md` 了解详细工作流程
 
 ### 性能优化指导
 - **基准测试**: 使用 `benches/benchmark.rs` 测量性能
 - **内存优化**: 关注 Rust 层的内存使用模式
 - **I/O 优化**: 使用异步操作和批量处理
 - **前端优化**: 利用 Vite 的代码分割和懒加载
+
+### 常见文档操作
+
+#### 快速文档检查
+```bash
+# 检查是否需要更新文档
+./tools/sync-docs.py --check-only
+
+# 生成更新计划
+./tools/sync-docs.py --output .doc-update-plan.md
+```
+
+#### 文档质量验证
+```bash
+# 完整质量检查
+./tools/check-docs.sh
+
+# 仅检查结构
+python3 tools/check-doc-structure.py
+
+# 仅检查 Mermaid 语法
+python3 tools/check-mermaid-syntax.py
+```
+
+#### 文档同步更新
+```bash
+# 自动更新所有文档
+./tools/update-docs.sh
+
+# 查看帮助信息
+./tools/update-docs.sh --help
+```
 
 ## 相关资源
 
@@ -318,6 +405,15 @@ graph TD
 - `docs/development.md` - 开发环境设置
 - `docs/build.md` - 构建系统详解
 - `docs/protobuf.md` - Protobuf 使用指南
+- `docs/context-document-sync-workflow.md` - 文档同步工作流程
+- `docs/context-document-update-guide.md` - 文档更新详细指南
+
+### 文档管理工具
+- `tools/sync-docs.py` - 文档同步检测工具
+- `tools/update-docs.sh` - 自动文档更新脚本
+- `tools/check-docs.sh` - 综合文档质量检查
+- `tools/check-doc-structure.py` - 文档结构验证
+- `tools/check-mermaid-syntax.py` - Mermaid 语法检查
 
 ### 生成的代码
 - `ts/lib/generated/` - TypeScript 通信绑定
@@ -329,6 +425,11 @@ graph TD
 - `rslib/bench.sh` - 性能基准测试脚本
 - `tools/ninja` - 构建工具包装器
 - 各模块的测试配置和脚本
+
+### 文档示例和模板
+- `docs/.doc-update-example.md` - 文档更新示例
+- `.last-doc-sync` - 最后同步时间记录
+- 备份目录: `docs/.backup/` - 自动创建的文档备份
 
 ---
 
